@@ -1,0 +1,48 @@
+version: "3"
+services:
+
+
+  front:
+    build: ./front/
+    depends_on:
+      - db
+      - inventory
+      - tracking
+      - ordering
+    expose:
+      - "5000"
+    ports:
+      - "0.0.0.0:5000:5000"
+
+  inventory:
+    build: ./inventory/
+    depends_on:
+      - db
+    expose:
+      - "5000"
+    ports:
+      - "0.0.0.0:5001:5000"
+  
+  tracking:
+    build: ./tracking/
+    depends_on:
+      - db
+    expose:
+      - "5000"
+    ports:
+      - "0.0.0.0:5002:5000"
+
+  ordering:
+    build: ./ordering/
+    depends_on:
+      - db
+    expose:
+      - "5000"
+    ports:
+      - "0.0.0.0:5003:5000"
+  
+
+  db:
+    image: mongo:4.0-xenial
+    expose:
+      - "27017"
